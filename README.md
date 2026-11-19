@@ -112,6 +112,12 @@ We can use the UI to interact with the server too.
 http://localhost:8200
 ```
 
+Vault Login
+![Vault Login](/images/vault-login.png)
+
+Vault Portal
+![Vault Portal](/images/vault-portal.png)
+
 - **STEP-07**: Enable the KV v2 secrets engine from your host:
 ```shell
 $ vault secrets enable -path=secret kv-v2
@@ -153,3 +159,6 @@ Key        Value
 ---        -----
 db_pass    supersecreto123
 ```
+
+## Links
+- [Vault CLI Installation](https://apt.releases.hashicorp.com/)
