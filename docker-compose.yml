@@ -1,0 +1,24 @@
+services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault-server
+    restart: unless-stopped
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK # Evita que Vault vuelque secretos de la RAM al disco (swap)
+    environment:
+      VAULT_ADDR: "http://127.0.0.1:8200"
+    volumes:
+      - ./config/vault-config.hcl:/vault/config/vault-config.hcl:ro
+      - vault-data:/vault/file
+    command: server
+    networks:
+      - vault-net
+
+volumes:
+  vault-data:
+
+networks:
+  vault-net:
+    driver: bridge
