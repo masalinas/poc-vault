@@ -1,0 +1,1 @@
+CREATE USER app_user WITH PASSWORD 'clave_inicial';

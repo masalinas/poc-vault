@@ -203,3 +203,4 @@ db_pass    supersecreto123
 
 ## Links
 - [Vault CLI Installation](https://apt.releases.hashicorp.com/)
+- [Vault + Keycloak](https://medium.com/@sauravkumarsct/integrate-keycloak-as-oidc-jwt-provider-with-hashicorp-vault-ae9ebcf8e335)
