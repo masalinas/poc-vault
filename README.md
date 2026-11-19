@@ -2,12 +2,12 @@
 Deploy Vault Server with Docker and install Vault CLI in your host to test your Server.
 
 ## Steps
-- **STEP-01**: Deploy Vault Server
+- **STEP01**: Deploy Vault Server
 ```shell
 $ docker compose up -d
 ```
 
-- **STEP-02**: Initialize Vault Sever
+- **STEP02**: Initialize Vault Sever
 Generate and save the **Unseal Keys** and the **Root Token**. In this case we will generate 3 unseal keys and only we need 2 of them to seal our Vault Server.\ 
 You must seal your server always you start up to use the Root token to authenticate and use any Vault path(endpoints)
 ```shell
@@ -30,7 +30,7 @@ It is possible to generate new unseal keys, provided you have a quorum of
 existing unseal keys shares. See "vault operator rekey" for more information.
 ```
 
-- **STEP-03**: Seal Vault Server
+- **STEP03**: Seal Vault Server
 After create the Unseal Keys you must seal the server executing 2 times this command and introduce 2 of the three unseal keys created before
 ```shell
 $ docker exec -it vault-server vault operator unseal
@@ -73,7 +73,7 @@ Raft Committed Index    33
 Raft Applied Index      33
 ```
 
-- **STEP-04**: Install Vault CLI
+- **STEP04**: Install Vault CLI
 Now with Vault sealed, we can install the Vault CLI to interact with the Server. Install certificates and final Vault CLI. This is for Ubuntu Focal (20.04)
 ```shell
 $ wget -O - https://apt- **STEP-04**: Install Vault CLI.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
@@ -81,7 +81,7 @@ $ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/has
 $ sudo apt update && sudo apt install vault
 ```
 
-- **STEP-05**: Login Vault Server
+- **STEP05**: Login Vault Server
 Using your Root Token Login in Server. We can use `-address` all the time or export `VAULT_ADDR` to define the Vault Server host:
 ```shell
 $ vault login -address=http://localhost:8200
@@ -106,7 +106,7 @@ We can use this environment variable:
 $ export VAULT_ADDR='http://127.0.0.1:8200'
 ```
 
-- **STEP-06**: Login using the Vault UI
+- **STEP06**: Login using the Vault UI
 We can use the UI to interact with the server too.
 ```shell
 http://localhost:8200
@@ -118,13 +118,13 @@ Vault Login
 Vault Portal
 ![Vault Portal](/images/vault-portal.png)
 
-- **STEP-07**: Enable the KV v2 secrets engine from your host:
+- **STEP07**: Enable the KV v2 secrets engine from your host:
 ```shell
 $ vault secrets enable -path=secret kv-v2
 Success! Enabled the kv-v2 secrets engine at: secret/
 ```
 
-- **STEP-08**: check Vault Server status and configuration
+- **STEP08**: check Vault Server status and configuration
 Check Vault Server status
 
 ```shell
@@ -163,7 +163,7 @@ secret/            kv                kv_5b4dc6d1                system         s
 sys/               system            system_1bf7224b            n/a            n/a        false             replicated     true         false                      map[]             system endpoints used for control, policy and debugging    aedc74de-7078-faed-efba-0b4120a41f91    n/a        v2.2.2+builtin.vault    n/a               n/a
 ```
 
-- **STEP-09**: use KV Secret Engine and make some tests
+- **STEP09**: use KV Secret Engine and make some tests
 Write and read a KV secret with key `mi-app db_pass` and value `supersecreto123` using the KV Secret Engine of Vault
 
 ```shell
