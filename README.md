@@ -125,7 +125,7 @@ Success! Enabled the kv-v2 secrets engine at: secret/
 ```
 
 -- **STEP-07**: Some test
-Checj Vault Server status
+Check Vault Server status
 
 ```shell
 $ vault status
@@ -150,7 +150,7 @@ Raft Committed Index    243
 Raft Applied Index      243
 ```
 
-List all secret engines deployed in Vault Server
+List all Secret Engines deployed in Vault Server
 
 ```shell
 $ vault secrets list -detailed
@@ -163,8 +163,9 @@ secret/            kv                kv_5b4dc6d1                system         s
 sys/               system            system_1bf7224b            n/a            n/a        false             replicated     true         false                      map[]             system endpoints used for control, policy and debugging    aedc74de-7078-faed-efba-0b4120a41f91    n/a        v2.2.2+builtin.vault    n/a               n/a
 ```
 
-- **STEP-08**: use KV secret engine and make some tests
-Test storing and reading a secret:
+- **STEP-08**: use KV Secret Engine and make some tests
+Write and read a KV secret with key `mi-app db_pass` and value `supersecreto123` using the KV Secret Engine of Vault
+
 ```shell
 $ vault kv put secret/mi-app db_pass="supersecreto123"
 vault kv put secret/mi-app db_pass="supersecreto123"
