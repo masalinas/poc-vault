@@ -124,7 +124,7 @@ $ vault secrets enable -path=secret kv-v2
 Success! Enabled the kv-v2 secrets engine at: secret/
 ```
 
--- **STEP-07**: Some test
+- **STEP-08: check Vault Server status and configuration
 Check Vault Server status
 
 ```shell
@@ -163,7 +163,7 @@ secret/            kv                kv_5b4dc6d1                system         s
 sys/               system            system_1bf7224b            n/a            n/a        false             replicated     true         false                      map[]             system endpoints used for control, policy and debugging    aedc74de-7078-faed-efba-0b4120a41f91    n/a        v2.2.2+builtin.vault    n/a               n/a
 ```
 
-- **STEP-08**: use KV Secret Engine and make some tests
+- **STEP-09**: use KV Secret Engine and make some tests
 Write and read a KV secret with key `mi-app db_pass` and value `supersecreto123` using the KV Secret Engine of Vault
 
 ```shell
