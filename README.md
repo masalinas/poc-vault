@@ -1,5 +1,5 @@
 # Description
-Deploy aVaul Server
+Deploy Vault Server with Docker and install Vault CLI in your host to test your Server.
 
 ## Steps
 - **STEP-01**: Deploy Vault Server
