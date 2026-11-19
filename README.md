@@ -8,8 +8,8 @@ $ docker compose up -d
 ```
 
 - **STEP-02**: Initialize Vault Sever
-Generate and save the unseal keys and the Root Token. In this case we will generate 3 unseal keys and only we need 2 of them to seal our Vault Server.\ 
-You must seal your server at start up to use the Root token to be authenticate and use any Vault path(endpoints)
+Generate and save the **Unseal Keys** and the **Root Token**. In this case we will generate 3 unseal keys and only we need 2 of them to seal our Vault Server.\ 
+You must seal your server always you start up to use the Root token to authenticate and use any Vault path(endpoints)
 ```shell
 $ docker exec -it vault-server vault operator init -key-shares=3 -key-threshold=2
 Unseal Key 1: dqI9ErhXhEALkICiWwvI6TJlgHpRzrK19ni2iLZAMD2J
@@ -31,7 +31,7 @@ existing unseal keys shares. See "vault operator rekey" for more information.
 ```
 
 - **STEP-03**: Seal Vault Server
-After obtaon the unseal keys you must seal the server executing 2 times this command and introduce 2 os the threee unseal keys created before
+After create the Unseal Keys you must seal the server executing 2 times this command and introduce 2 of the three unseal keys created before
 ```shell
 $ docker exec -it vault-server vault operator unseal
 Unseal Key (will be hidden): 
@@ -74,13 +74,15 @@ Raft Applied Index      33
 ```
 
 - **STEP-04**: Install Vault CLI
-Now with Vault sealed, we can install the Vault CLI to interact with the Server. Install certificates and vault CLI
+Now with Vault sealed, we can install the Vault CLI to interact with the Server. Install certificates and final Vault CLI. This is for Ubuntu Focal (20.04)
 ```shell
-$ wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+$ wget -O - https://apt- **STEP-04**: Install Vault CLI.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 $ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 $ sudo apt update && sudo apt install vault
 ```
 
+- **STEP-05**: Login Vault Server
+Using your Root Token Login in Server. We can use `-address` all the time or export `VAULT_ADDR` to define the Vault Server host:
 ```shell
 $ vault login -address=http://localhost:8200
 Token (will be hidden): 
@@ -104,16 +106,13 @@ We can use this environment variable:
 $ export VAULT_ADDR='http://127.0.0.1:8200'
 ```
 
-- **STEP-05**: Login using the Vault UI
+- **STEP-06**: Login using the Vault UI
 We can use the UI to interact with the server too.
 ```shell
 http://localhost:8200
 ```
 
-- **STEP-06**: 
-Don't forget activate this env variable.
-
-Enable the KV v2 secrets engine from your host:
+- **STEP-07**: Enable the KV v2 secrets engine from your host:
 ```shell
 $ vault secrets enable -path=secret kv-v2
 Success! Enabled the kv-v2 secrets engine at: secret/
