@@ -124,7 +124,7 @@ $ vault secrets enable -path=secret kv-v2
 Success! Enabled the kv-v2 secrets engine at: secret/
 ```
 
-- **STEP-08: check Vault Server status and configuration
+- **STEP-08**: check Vault Server status and configuration
 Check Vault Server status
 
 ```shell
