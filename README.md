@@ -1,5 +1,5 @@
 # Description
-Deploy a Vault Server and everal Vault samples using Vault Agents and Docker containers.
+Deploy a Vault Server and several Vault user cases using Vault Agents and Docker containers.
 
 ## Deploy Vault Server
 
