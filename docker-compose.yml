@@ -35,7 +35,7 @@ services:
   vault-agent-mtls:
     image: hashicorp/vault:latest
     container_name: vault-agent-mtls
-    command: ["vault", "agent", "-config=/services/vault-agent/mtls/agent-config.hcl"]
+    command: ["vault", "agent", "-config=/vault/config/agent-config.hcl"]
     depends_on:
       - vault-server
     volumes:
@@ -44,6 +44,7 @@ services:
       - ./services/vault-agent/mtls/secret_id:/vault/config/secret_id:ro
       - ./services/vault-agent/mtls/templates:/vault/templates:ro
       - ./services/vault-agent/mtls/certs:/certs
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - vault-net
 
@@ -60,7 +61,7 @@ services:
     # Espera a que Vault Agent genere los certificados antes de arrancar Nginx
     entrypoint: >
       /bin/sh -c "
-      while [ ! -f /etc/nginx/certs/server.crt ]; do
+      while [ ! -s /etc/nginx/certs/server.pem ] || [ ! -s /etc/nginx/certs/ca.crt ]; do
         echo 'Esperando certificados de Vault Agent...';
         sleep 2;
       done;

@@ -42,8 +42,8 @@ Success! Data written to: auth/approle/role/mi-app-role
 # 4. Extraer role_id y secret_id a ficheros locales para el agente
 $ cd services/vault-agent/simple
 
-$ vault read -field=role_id auth/approle/role/mi-app-role/role-id > role_id.txt
-$ vault write -f -field=secret_id auth/approle/role/mi-app-role/secret-id > secret_id.txt
+$ vault read -field=role_id auth/approle/role/mi-app-role/role-id > role_id
+$ vault write -f -field=secret_id auth/approle/role/mi-app-role/secret-id > secret_id
 ```
 
 - **STEP02**: Create the template (app.env.ctmpl)
@@ -65,8 +65,8 @@ vault {
 auto_auth {
   method "approle" {
     config = {
-      role_id_file_path                   = "./role_id.txt"
-      secret_id_file_path                 = "./secret_id.txt"
+      role_id_file_path                   = "./role_id"
+      secret_id_file_path                 = "./secret_id"
       remove_secret_id_file_after_reading = false
     }
   }
@@ -105,7 +105,7 @@ $ vault agent -config=agent-config.hcl
              Version Sha: c56e7e670bd8c79104c27b6c10138226538a6db2
 
 2026-11-19T13:00:37.189+0100 [INFO]  agent.sink.file: creating file sink
-2026-11-19T13:00:37.189+0100 [INFO]  agent.sink.file: file sink configured: path=./vault-token-via-agent mode=-rw-r----- owner=1000 group=1000
+2026-11-19T13:00:37.189+0100 [INFO]  agent.sink.file: file sink configured: path=./vault-token mode=-rw-r----- owner=1000 group=1000
 2026-11-19T13:00:37.191+0100 [INFO]  agent.sink.server: starting sink server
 2026-11-19T13:00:37.191+0100 [INFO]  agent.exec.server: starting exec server
 2026-11-19T13:00:37.191+0100 [INFO]  agent.exec.server: no env templates or exec config, exiting
@@ -117,7 +117,7 @@ $ vault agent -config=agent-config.hcl
 2026-11-19T13:00:37.205+0100 [INFO]  agent.auth.handler: authentication successful, sending token to sinks
 2026-11-19T13:00:37.205+0100 [INFO]  agent.auth.handler: starting renewal process
 2026-11-19T13:00:37.205+0100 [INFO]  agent.template.server: template server received new token
-2026-11-19T13:00:37.205+0100 [INFO]  agent.sink.file: token written: path=./vault-token-via-agent
+2026-11-19T13:00:37.205+0100 [INFO]  agent.sink.file: token written: path=./vault-token
 2026-11-19T13:00:37.205+0100 [INFO]  agent: (runner) stopping
 2026-11-19T13:00:37.205+0100 [INFO]  agent: (runner) creating new runner (dry: false, once: false)
 2026-11-19T13:00:37.206+0100 [INFO]  agent: (runner) creating watcher

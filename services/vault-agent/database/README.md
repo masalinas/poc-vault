@@ -69,8 +69,8 @@ Success! Data written to: auth/approle/role/pg-agent-role
 # Extraer role_id y secret_id a ficheros locales para el agente
 $ cd services/vault-agent/database
 
-$ vault read -field=role_id auth/approle/role/pg-agent-role/role-id > role_id.txt
-$ vault write -f -field=secret_id auth/approle/role/pg-agent-role/secret-id > secret_id.txt
+$ vault read -field=role_id auth/approle/role/pg-agent-role/role-id > role_id
+$ vault write -f -field=secret_id auth/approle/role/pg-agent-role/secret-id > secret_id
 ```
 
 - **STEP04**: Creating the Vault Agent template and configuration
@@ -92,8 +92,8 @@ vault {
 auto_auth {
   method "approle" {
     config = {
-      role_id_file_path                   = "./role_id.txt"
-      secret_id_file_path                 = "./secret_id.txt"
+      role_id_file_path                   = "./role_id"
+      secret_id_file_path                 = "./secret_id"
       remove_secret_id_file_after_reading = false
     }
   }

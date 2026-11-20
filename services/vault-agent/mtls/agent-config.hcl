@@ -1,5 +1,5 @@
 vault {
-  address = "http://127.0.0.1:8200"
+  address = "http://vault-server:8200"
 }
 
 auto_auth {
@@ -14,22 +14,14 @@ auto_auth {
 }
 
 template {
-  source      = "./vault/templates/server.crt.ctmpl"
-  destination = "./certs/server.crt"
+  source      = "/vault/templates/ca.crt.ctmpl"
+  destination = "/certs/ca.crt"
   perms       = "0644"
-  command     = "nginx -p $(pwd) -c nginx.conf -s reload || true"
 }
 
 template {
-  source      = "./vault/templates/server.key.ctmpl"
-  destination = "./certs/server.key"
+  source      = "/vault/templates/server.pem.ctmpl"
+  destination = "/certs/server.pem"
   perms       = "0600"
-  command     = "nginx -p $(pwd) -c nginx.conf -s reload || true"
-}
-
-template {
-  source      = "./vault/templates/ca.crt.ctmpl"
-  destination = "./certs/ca.crt"
-  perms       = "0644"
-  command     = "nginx -p $(pwd) -c nginx.conf -s reload || true"
+  command     = "curl -s --unix-socket /var/run/docker.sock -X POST http://localhost/containers/nginx-container/kill?signal=HUP || true"
 }

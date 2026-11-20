@@ -29,51 +29,51 @@ WARNING! The following warnings were returned from Vault:
 Key              Value
 ---              -----
 certificate      -----BEGIN CERTIFICATE-----
-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
+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
 -----END CERTIFICATE-----
-expiration       1826642296
-issuer_id        3fec4205-02ba-6edb-d29b-b4ed28fe4863
+expiration       1797942258
+issuer_id        45f01414-e9cb-2b59-dc8b-77efe4a4b54d
 issuer_name      n/a
 issuing_ca       -----BEGIN CERTIFICATE-----
-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
+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
 -----END CERTIFICATE-----
-key_id           d4f34859-b949-6a79-573b-4c0257f83af8
+key_id           780213af-1a43-ca2f-e882-d80b20588718
 key_name         n/a
-serial_number    55:c8:dd:9b:2c:8f:46:98:fb:93:60:2c:cd:92:a6:04:d7:3b:85:8a
+serial_number    0e:3c:d3:53:d0:52:a8:ef:f2:20:a8:34:8e:e1:8f:ca:d1:a0:7f:e6
 
 # 2. Crear un rol PKI que permita emitir certificados para localhost y clientes
 $ vault write pki/roles/nginx-mtls \
@@ -156,3 +156,24 @@ Success! Data written to: auth/approle/role/nginx-agent
 $ vault read -field=role_id auth/approle/role/nginx-agent/role-id > role_id
 $ vault write -f -field=secret_id auth/approle/role/nginx-agent/secret-id > secret_id
 ```
+
+- **STEP02**: Issue a client certificate and key from Vault and test GET response
+
+```shell
+$ vault write -format=json pki/issue/nginx-mtls common_name="client.localhost" ttl="24h" > client_cert.json
+$ jq -r '.data.certificate' client_cert.json > client.crt
+$ jq -r '.data.private_key' client_cert.json > client.key
+```
+
+Verification: Run ls -lh `client.crt` `client.key` and confirm both files are non-empty.
+
+Test the mTLS endpoint
+```shell
+$ curl --cacert ./services/vault-agent/mtls/certs/ca.crt \
+     --cert client.crt \
+     --key client.key \
+     https://localhost:8443
+mTLS OK! Cliente autenticado: CN=client.localhost
+```
+
+Verification: Nginx returns 200 OK and your page content instead of 400 Bad Request.
