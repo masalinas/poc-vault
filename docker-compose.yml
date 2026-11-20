@@ -1,5 +1,5 @@
 services:
-  vault:
+  vault-server:
     image: hashicorp/vault:latest
     container_name: vault-server
     restart: unless-stopped
@@ -10,15 +10,15 @@ services:
     environment:
       VAULT_ADDR: "http://127.0.0.1:8200"
     volumes:
-      - ./config/vault-config.hcl:/vault/config/vault-config.hcl:ro
+      - ./services/vault-server/vault-config.hcl:/vault/config/vault-config.hcl:ro
       - vault-data:/vault/file
     command: server
     networks:
       - vault-net
 
-  postgres:
+  vault-pg:
     image: postgres:16
-    container_name: pg-poc
+    container_name: vault-pg
     ports:
       - "5432:5432"
     environment:
@@ -26,16 +26,58 @@ services:
       POSTGRES_PASSWORD: rootpassword
       POSTGRES_DB: postgres
     volumes:
-      - pg-data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - vault-pg-data:/var/lib/postgresql/data
+      - ./services/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     restart: unless-stopped
+    networks:
+      - vault-net
+
+  vault-agent-mtls:
+    image: hashicorp/vault:latest
+    container_name: vault-agent-mtls
+    command: ["vault", "agent", "-config=/services/vault-agent/mtls/agent-config.hcl"]
+    depends_on:
+      - vault-server
+    volumes:
+      - ./services/vault-agent/mtls/agent-config.hcl:/vault/config/agent-config.hcl:ro
+      - ./services/vault-agent/mtls/role_id:/vault/config/role_id:ro
+      - ./services/vault-agent/mtls/secret_id:/vault/config/secret_id:ro
+      - ./services/vault-agent/mtls/templates:/vault/templates:ro
+      - ./services/vault-agent/mtls/certs:/certs
+    networks:
+      - vault-net
+
+  vault-nginx:
+    image: nginx:alpine
+    container_name: vault-nginx
+    ports:
+      - "8443:8443"
+    depends_on:
+      - vault-agent-mtls
+    volumes:
+      - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./services/vault-agent/mtls/certs:/etc/nginx/certs:ro
+    # Espera a que Vault Agent genere los certificados antes de arrancar Nginx
+    entrypoint: >
+      /bin/sh -c "
+      while [ ! -f /etc/nginx/certs/server.crt ]; do
+        echo 'Esperando certificados de Vault Agent...';
+        sleep 2;
+      done;
+      exec nginx -g 'daemon off;'
+      "
     networks:
       - vault-net
 
 volumes:
   vault-data:  
-  pg-data:
+    name: vault-data
+  vault-pg-data:
+    name: vault-pg-data
+  vault-nginx-data:
+    name: vault-nginx-data
 
 networks:
   vault-net:
+    name: vault-net
     driver: bridge
