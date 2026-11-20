@@ -6,7 +6,7 @@ services:
     ports:
       - "8200:8200"
     cap_add:
-      - IPC_LOCK # Evita que Vault vuelque secretos de la RAM al disco (swap)
+      - IPC_LOCK # Prevent Vault from dumping secrets from RAM to disk (swap)
     environment:
       VAULT_ADDR: "http://127.0.0.1:8200"
     volumes:
@@ -57,8 +57,8 @@ services:
       - vault-agent-mtls
     volumes:
       - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./services/vault-agent/mtls/certs:/etc/nginx/certs:ro
-    # Espera a que Vault Agent genere los certificados antes de arrancar Nginx
+      - ./services/vault-agent/mtls/certs:/etc/nginx/certs:ro    
+    # Wait for Vault Agent to generate the certificates before starting Nginx
     entrypoint: >
       /bin/sh -c "
       while [ ! -s /etc/nginx/certs/server.pem ] || [ ! -s /etc/nginx/certs/ca.crt ]; do
