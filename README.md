@@ -7,8 +7,8 @@ Deploy a Vault Server and everal Vault samples using Vault Agents and Docker con
 
 ## Deploy Vault Samples
 
-- [Vault Simple Sample](./services/vault-agent/kv/README.md): A kv secret Vault sample using KV Secret Engine to deploy a secret to be pulled by Vault Agent
-- [Vault Database Sample](./services/vault-agent/database/README.md): A password PostgreSQL Database Vault sample using Database Secret Engine to be rotated and pulled by a Vault Agent
-- [Vault mTLS Sample](./services/vault-agent/mtls/README.md): A mTLS Vault sample using a PKI Secret Engine to generate temporal dynamic certificates and pulled by a Vault Agent to be connect to a Nginx Web Server from a client like curl tool.
+- [Vault Simple Sample](./services/vault-agent/kv/README.md): A KV Secret Vault Sample using KV Secret Engine to be pulled by Vault Agent at frecuency.
+- [Vault Database Sample](./services/vault-agent/database/README.md): A Password Secret PostgreSQL Database Vault Sample using Database Secret Engine to be rotated and pulled by a Vault Agent at frecuency.
+- [Vault mTLS Sample](./services/vault-agent/mtls/README.md): A mTLS Vault sample using a PKI Secret Engine to generate temporal dynamic certificates pulled by Vault Agent to configure mTLS Nginx Web Server to be used by curl tool.
 
 ![Docker Services](./images/docker_services.png)
